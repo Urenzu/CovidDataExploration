@@ -118,8 +118,7 @@ Create View PercentPopulationVaccinated as
 Select dea.continent, dea.location, dea.date, dea.population, vac.new_vaccinations, SUM(CONVERT(bigint,vac.new_vaccinations)) OVER (Partition by dea.location Order by dea.location, dea.Date) as RollingPeopleVaccinated
 From CovidExploration..CovidDeaths dea
 Join CovidExploration..CovidVaccinations vac
-	On dea.location = vac.location
-	and dea.date = vac.date
+On dea.location = vac.location and dea.date = vac.date
 where dea.continent is not null
 
 Select *
