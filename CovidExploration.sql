@@ -1,4 +1,3 @@
-
 Select *
 From CovidExploration..CovidDeaths
 Where continent is not null
@@ -116,8 +115,7 @@ From #PercentPopulationVaccinated
 -- Creating view to store data for later visualizations
 
 Create View PercentPopulationVaccinated as
-Select dea.continent, dea.location, dea.date, dea.population, vac.new_vaccinations
-, SUM(CONVERT(bigint,vac.new_vaccinations)) OVER (Partition by dea.location Order by dea.location, dea.Date) as RollingPeopleVaccinated
+Select dea.continent, dea.location, dea.date, dea.population, vac.new_vaccinations, SUM(CONVERT(bigint,vac.new_vaccinations)) OVER (Partition by dea.location Order by dea.location, dea.Date) as RollingPeopleVaccinated
 From CovidExploration..CovidDeaths dea
 Join CovidExploration..CovidVaccinations vac
 	On dea.location = vac.location
